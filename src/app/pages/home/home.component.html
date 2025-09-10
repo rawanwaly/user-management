@@ -1,0 +1,27 @@
+<div class="home-container">
+    <div class="hero-section">
+      <div class="hero-content">
+        <h1>{{ 'Home.Welcome' | translate }}</h1>
+        <p class="hero-subtitle">{{ 'Home.Subtitle' | translate }}</p>
+        
+        <div class="action-cards">
+          <!-- View All Users Card -->
+          <div class="card" (click)="navigateToUsers()">
+            <div class="card-icon">👥</div>
+            <h3>{{ 'User.AllUsers' | translate }}</h3>
+            <p>{{ 'Home.AllUsersDesc' | translate }}</p>
+            <button class="card-btn">{{ 'User.AllUsers' | translate }}</button>
+          </div>
+  
+          <!-- Add User Card -->
+          <div class="card" (click)="navigateToAddUser()">
+            <div class="card-icon">➕</div>
+            <h3>{{ 'User.AddUser' | translate }}</h3>
+            <p>{{ 'Home.AddUserDesc' | translate }}</p>
+            <button class="card-btn">{{ 'User.AddUser' | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

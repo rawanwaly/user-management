@@ -1,0 +1,47 @@
+<nav class="navbar">
+    <div class="nav-container">
+      <!-- Brand -->
+      <div class="nav-brand">
+        <h2>{{ 'Navbar.title' | translate }}</h2>
+      </div>
+  
+      <!-- Menu -->
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a routerLink="/" 
+             class="nav-link" 
+             routerLinkActive="active" 
+             [routerLinkActiveOptions]="{exact: true}">
+            {{ 'Navbar.home' | translate }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/users" class="nav-link" routerLinkActive="active">
+            {{ 'Navbar.allUsers' | translate }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/user/add" class="nav-link" routerLinkActive="active">
+            {{ 'Navbar.addUser' | translate }}
+          </a>
+        </li>
+      </ul>
+  
+      <!-- Language Switcher -->
+      <div class="lang-switch">
+        <button 
+          class="lang-btn" 
+          [ngClass]="currentLang === 'en' ? 'active' : ''" 
+          (click)="switchLanguage('en')">
+          EN
+        </button>
+        <button 
+          class="lang-btn" 
+          [ngClass]="currentLang === 'ar' ? 'active' : ''" 
+          (click)="switchLanguage('ar')">
+          ع
+        </button>
+      </div>
+    </div>
+  </nav>
+  

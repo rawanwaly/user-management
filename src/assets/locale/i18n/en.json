@@ -1,0 +1,52 @@
+{
+  "User": {
+    "AddUser": "Add User",
+    "EditUser": "Edit User",
+    "FirstNameEN": "First Name (English)",
+    "LastNameEN": "Last Name (English)",
+    "FirstNameAR": "First Name (Arabic)",
+    "LastNameAR": "Last Name (Arabic)",
+    "Email": "Email",
+    "Mobile": "Mobile Number",
+    "MaritalStatus": "Marital Status",
+    "SelectStatus": "Select",
+    "Address": "Address",
+    "AllUsers": "All Users",
+    "Status": {
+      "Single": "Single",
+      "Married": "Married",
+      "Divorced": "Divorced",
+      "Widower": "Widower"
+    }
+  },
+  "Validation": {
+    "FirstNameENRequired": "English first name is required",
+    "LastNameENRequired": "English last name is required",
+    "FirstNameARRequired": "Arabic first name is required",
+    "LastNameARRequired": "Arabic last name is required",
+    "EmailRequired": "Email is required",
+    "InvalidEmail": "Invalid email format",
+    "EmailAlreadyExists": "This email is already registered",
+    "MobileRequired": "Mobile number is required",
+    "InvalidMobile": "Must start with 05 and be 10 digits",
+    "MobileAlreadyExists": "This mobile number is already registered",
+    "MaritalStatusRequired": "Marital status is required"
+  },
+  "Actions": {
+    "Cancel": "Cancel",
+    "Save": "Save",
+    "Update": "Update"
+  },
+  "Home": {
+    "Welcome": "Welcome to User Management System",
+    "Subtitle": "Manage users quickly and efficiently",
+    "AllUsersDesc": "Browse, search, and manage all registered users",
+    "AddUserDesc": "Register a new user with the required information"
+  },
+  "Navbar": {
+    "title": "User Management System",
+    "home": "Home",
+    "allUsers": "All Users",
+    "addUser": "Add User"
+  }
+}

@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import "~@fortawesome/fontawesome-free/css/fontawesome.css";
+* {
+  margin: 0;
+  padding: 0;
+  outline: none !important;
+}
+body {
+  color: #000;
+  font-size: 1em;
+  font-weight: normal;
+}
+a,
+input,
+button {
+  outline: none !important;
+  transition: 0.3s all ease-in-out;
+}
+ul,
+ol,
+li {
+  list-style-type: none;
+}
+ul,
+ol,
+dl {
+  margin: 0 !important;
+}
+

@@ -1,0 +1,52 @@
+{
+  "User": {
+    "AddUser": "إضافة مستخدم",
+    "EditUser": "تعديل مستخدم",
+    "FirstNameEN": "الاسم الأول (بالإنجليزية)",
+    "LastNameEN": "الاسم الأخير (بالإنجليزية)",
+    "FirstNameAR": "الاسم الأول (بالعربية)",
+    "LastNameAR": "الاسم الأخير (بالعربية)",
+    "Email": "البريد الإلكتروني",
+    "Mobile": "رقم الجوال",
+    "MaritalStatus": "الحالة الاجتماعية",
+    "SelectStatus": "اختر",
+    "Address": "العنوان",
+    "AllUsers": "جميع المستخدمين",
+    "Status": {
+      "Single": "أعزب",
+      "Married": "متزوج",
+      "Divorced": "مطلق",
+      "Widower": "أرمل"
+    }
+  },
+  "Validation": {
+    "FirstNameENRequired": "الاسم الأول بالإنجليزية مطلوب",
+    "LastNameENRequired": "الاسم الأخير بالإنجليزية مطلوب",
+    "FirstNameARRequired": "الاسم الأول بالعربية مطلوب",
+    "LastNameARRequired": "الاسم الأخير بالعربية مطلوب",
+    "EmailRequired": "البريد الإلكتروني مطلوب",
+    "InvalidEmail": "البريد الإلكتروني غير صالح",
+    "EmailAlreadyExists": "هذا البريد الإلكتروني مسجل بالفعل",
+    "MobileRequired": "رقم الجوال مطلوب",
+    "InvalidMobile": "يجب أن يبدأ برقم 05 ويتكون من 10 أرقام",
+    "MobileAlreadyExists": "رقم الجوال هذا مسجل بالفعل",
+    "MaritalStatusRequired": "الحالة الاجتماعية مطلوبة"
+  },
+  "Actions": {
+    "Cancel": "إلغاء",
+    "Save": "حفظ",
+    "Update": "تحديث"
+  },
+  "Home": {
+    "Welcome": "مرحبًا بك في نظام إدارة المستخدمين",
+    "Subtitle": "إدارة المستخدمين بسرعة وكفاءة",
+    "AllUsersDesc": "تصفح وابحث وأدر جميع المستخدمين المسجلين",
+    "AddUserDesc": "سجّل مستخدمًا جديدًا بالمعلومات المطلوبة"
+  },
+  "Navbar": {
+    "title": "نظام إدارة المستخدمين",
+    "home": "الصفحة الرئيسية",
+    "allUsers": "جميع المستخدمين",
+    "addUser": "إضافة مستخدم"
+  }
+}
