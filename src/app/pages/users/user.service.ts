@@ -31,11 +31,20 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
   
-  checkEmailExists(email: string): Observable<boolean> {
-      return this.http.get<boolean>(`${this.apiUrl}/check-email?email=${email}`);
-}
-  
-    checkMobileExists(mobile: string): Observable<boolean> {
-      return this.http.get<boolean>(`${this.apiUrl}/check-mobile?mobile=${mobile}`);
+  checkEmailExists(email: string, excludeId?: number): Observable<boolean> {
+    let url = `${this.apiUrl}/check-email?email=${email}`;
+    if (excludeId) {
+      url += `&excludeId=${excludeId}`;
     }
+    return this.http.get<boolean>(url);
+  }
+  
+  checkMobileExists(mobile: string, excludeId?: number): Observable<boolean> {
+    let url = `${this.apiUrl}/check-mobile?mobile=${mobile}`;
+    if (excludeId) {
+      url += `&excludeId=${excludeId}`;
+    }
+    return this.http.get<boolean>(url);
+  }
+  
 }

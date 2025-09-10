@@ -52,6 +52,7 @@ export class UserFormComponent implements OnInit {
   }
   
   buildForm(): void {
+    console.log("userId in buildForm:", this.userId);
     this.userForm = this.fb.group({
       firstNameEN: ['', Validators.required],
       lastNameEN: ['', Validators.required],
@@ -60,12 +61,12 @@ export class UserFormComponent implements OnInit {
       email: [
         '',
         [Validators.required, Validators.email],
-        [AsyncExistanceValidator(value => this.userService.checkEmailExists(value))]
+        [AsyncExistanceValidator(value => this.userService.checkEmailExists(value, this.userId))]
       ],      
       mobileNumber: [
         '',
         [Validators.required, MobilePrefixValidator],
-        [AsyncExistanceValidator(value => this.userService.checkMobileExists(value))]
+        [AsyncExistanceValidator(value => this.userService.checkMobileExists(value, this.userId))]
       ],      
       maritalStatus: [null, Validators.required],
       address: ['', Validators.required]
@@ -91,6 +92,13 @@ export class UserFormComponent implements OnInit {
             maritalStatus: toMaritalStatusValue(user.maritalStatus), 
               address: user.address
           });
+            // ✅ Re-apply async validators with userId
+        this.userForm.get('email')?.setAsyncValidators(
+          AsyncExistanceValidator(value => this.userService.checkEmailExists(value, this.userId))
+        );
+        this.userForm.get('mobileNumber')?.setAsyncValidators(
+          AsyncExistanceValidator(value => this.userService.checkMobileExists(value, this.userId))
+        );
         } else {
           console.error('User not found with ID:', id);
           this.router.navigate(['/users']);
@@ -114,11 +122,12 @@ export class UserFormComponent implements OnInit {
     }
   
     const formValue = this.userForm.value;
+
     const userData = {
       ...formValue,
-      maritalStatus: toMaritalStatusString(formValue.maritalStatus) // ✅ shared helper
-    };
-      
+      id: this.userId,   
+      maritalStatus: formValue.maritalStatus
+    };    
     if (this.isEditMode && this.userId) {
       this.userService.update(this.userId, userData).subscribe({
         next: () => {
