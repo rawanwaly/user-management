@@ -12,93 +12,55 @@
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
     <!-- First Name EN -->
     <div class="form-group">
-      <label>{{ "User.FirstNameEN" | translate }}</label>
+      <label class="required">{{ "User.FirstNameEN" | translate }}</label>
       <input class="form-control" formControlName="firstNameEN" />
-      <div
-        *ngIf="
-          userForm.get('firstNameEN')?.touched &&
-          userForm.get('firstNameEN')?.invalid
-        "
-        class="error-message"
-      >
+      <div *ngIf="isInvalid('firstNameEN')" class="error-message">
         {{ "Validation.FirstNameENRequired" | translate }}
       </div>
     </div>
 
     <!-- Last Name EN -->
     <div class="form-group">
-      <label>{{ "User.LastNameEN" | translate }}</label>
+      <label class="required">{{ "User.LastNameEN" | translate }}</label>
       <input class="form-control" formControlName="lastNameEN" />
-      <div
-        *ngIf="
-          userForm.get('lastNameEN')?.touched &&
-          userForm.get('lastNameEN')?.invalid
-        "
-        class="error-message"
-      >
+      <div *ngIf="isInvalid('lastNameEN')" class="error-message">
         {{ "Validation.LastNameENRequired" | translate }}
       </div>
     </div>
 
     <!-- First Name AR -->
     <div class="form-group">
-      <label>{{ "User.FirstNameAR" | translate }}</label>
+      <label class="required">{{ "User.FirstNameAR" | translate }}</label>
       <input class="form-control" formControlName="firstNameAR" />
-      <div
-        *ngIf="
-          userForm.get('firstNameAR')?.touched &&
-          userForm.get('firstNameAR')?.invalid
-        "
-        class="error-message"
-      >
+      <div *ngIf="isInvalid('firstNameAR')" class="error-message">
         {{ "Validation.FirstNameARRequired" | translate }}
       </div>
     </div>
 
     <!-- Last Name AR -->
     <div class="form-group">
-      <label>{{ "User.LastNameAR" | translate }}</label>
+      <label class="required">{{ "User.LastNameAR" | translate }}</label>
       <input class="form-control" formControlName="lastNameAR" />
-      <div
-        *ngIf="
-          userForm.get('lastNameAR')?.touched &&
-          userForm.get('lastNameAR')?.invalid
-        "
-        class="error-message"
-      >
+      <div *ngIf="isInvalid('lastNameAR')" class="error-message">
         {{ "Validation.LastNameARRequired" | translate }}
       </div>
     </div>
+
     <!-- Email -->
     <div class="form-group">
-      <label>{{ "User.Email" | translate }}</label>
+      <label class="required">{{ "User.Email" | translate }}</label>
       <input class="form-control" formControlName="email" />
-
-      <div
-        *ngIf="
-          userForm.get('email')?.touched &&
-          userForm.get('email')?.hasError('required')
-        "
-        class="error-message"
-      >
+      <div *ngIf="isInvalid('email')" class="error-message">
         {{ "Validation.EmailRequired" | translate }}
       </div>
-
       <div
-        *ngIf="
-          userForm.get('email')?.touched &&
-          userForm.get('email')?.hasError('email')
-        "
+        *ngIf="userForm.get('email')?.hasError('email')"
         class="error-message"
       >
         {{ "Validation.InvalidEmail" | translate }}
       </div>
-
       <div
-        *ngIf="
-          userForm.get('email')?.touched &&
-          userForm.get('email')?.hasError('isExists')
-        "
+        *ngIf="userForm.get('email')?.hasError('isExists')"
         class="error-message"
       >
         {{ "Validation.EmailAlreadyExists" | translate }}
@@ -107,34 +69,19 @@
 
     <!-- Mobile -->
     <div class="form-group">
-      <label>{{ "User.Mobile" | translate }}</label>
+      <label class="required">{{ "User.Mobile" | translate }}</label>
       <input class="form-control" formControlName="mobileNumber" />
-
-      <div
-        *ngIf="
-          userForm.get('mobileNumber')?.touched &&
-          userForm.get('mobileNumber')?.hasError('required')
-        "
-        class="error-message"
-      >
+      <div *ngIf="isInvalid('mobileNumber')" class="error-message">
         {{ "Validation.MobileRequired" | translate }}
       </div>
-
       <div
-        *ngIf="
-          userForm.get('mobileNumber')?.touched &&
-          userForm.get('mobileNumber')?.hasError('pattern')
-        "
+        *ngIf="userForm.get('mobileNumber')?.hasError('pattern')"
         class="error-message"
       >
         {{ "Validation.InvalidMobile" | translate }}
       </div>
-
       <div
-        *ngIf="
-          userForm.get('mobileNumber')?.touched &&
-          userForm.get('mobileNumber')?.hasError('isExists')
-        "
+        *ngIf="userForm.get('mobileNumber')?.hasError('isExists')"
         class="error-message"
       >
         {{ "Validation.MobileAlreadyExists" | translate }}
@@ -143,7 +90,7 @@
 
     <!-- Marital Status -->
     <div class="form-group">
-      <label>{{ "User.MaritalStatus" | translate }}</label>
+      <label class="required">{{ "User.MaritalStatus" | translate }}</label>
       <select formControlName="maritalStatus" class="custom-select">
         <option [ngValue]="null">{{ "User.SelectStatus" | translate }}</option>
         <option
@@ -153,13 +100,7 @@
           {{ option.label | translate }}
         </option>
       </select>
-      <div
-        *ngIf="
-          userForm.get('maritalStatus')?.touched &&
-          userForm.get('maritalStatus')?.invalid
-        "
-        class="error-message"
-      >
+      <div *ngIf="isInvalid('maritalStatus')" class="error-message">
         {{ "Validation.MaritalStatusRequired" | translate }}
       </div>
     </div>
@@ -167,7 +108,14 @@
     <!-- Address -->
     <div class="form-group" style="grid-column: span 2">
       <label>{{ "User.Address" | translate }}</label>
-      <input type="text" class="form-control" formControlName="address">
+      <textarea class="form-control" formControlName="address"></textarea>
+      <!-- Max Length -->
+      <div
+        *ngIf="userForm.get('address')?.hasError('maxlength')"
+        class="error-message"
+      >
+        {{ "Validation.AddressMaxLength" | translate }}
+      </div>
     </div>
 
     <!-- Actions -->
@@ -176,7 +124,7 @@
         {{ "Actions.Cancel" | translate }}
       </button>
 
-      <button type="submit" class="btn btn-save" [disabled]="userForm.invalid">
+      <button type="submit" class="btn btn-save">
         {{
           isEditMode
             ? ("Actions.Update" | translate)
@@ -185,4 +133,14 @@
       </button>
     </div>
   </form>
+<app-confirmation-modal
+  [visible]="modalVisible"
+  [title]="modalTitle"
+  [message]="modalMessage"
+  [confirmText]="'Actions.Confirm' | translate"
+  [cancelText]="'Actions.Cancel' | translate"
+  [showCancel]="showCancelBtn"
+  (confirm)="onModalConfirm()"
+  (cancel)="onModalCancel()"
+></app-confirmation-modal>
 </div>

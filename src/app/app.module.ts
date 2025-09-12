@@ -11,7 +11,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { UserFormComponent } from './pages/users/user-form/user-form.component';
 import { UserService } from './pages/users/user.service';
-import { AppRoutingModule } from './app-routing.module'; 
+import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from "src/app/components/shared/shared.module";
 
 // Factory for i18n loader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -24,7 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HeaderComponent,
     HomeComponent,
     UserListComponent,
-    UserFormComponent
+    UserFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,14 +34,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     AppRoutingModule,
     TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        defaultLanguage: 'en',
+        loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+        }
     }),
-  ],
+    SharedModule
+],
   providers: [UserService],
   bootstrap: [AppComponent]
 })

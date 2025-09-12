@@ -30,12 +30,15 @@
     "MobileRequired": "رقم الجوال مطلوب",
     "InvalidMobile": "يجب أن يبدأ برقم 05 ويتكون من 10 أرقام",
     "MobileAlreadyExists": "رقم الجوال هذا مسجل بالفعل",
-    "MaritalStatusRequired": "الحالة الاجتماعية مطلوبة"
+    "MaritalStatusRequired": "الحالة الاجتماعية مطلوبة",
+    "AddressMaxLength": "لا يمكن أن يتجاوز العنوان 200 حرف."
   },
   "Actions": {
     "Cancel": "إلغاء",
     "Save": "حفظ",
-    "Update": "تحديث"
+    "Update": "تحديث",
+    "Confirm": "تأكيد",
+    "Close": "إغلاق"
   },
   "Home": {
     "Welcome": "مرحبًا بك في نظام إدارة المستخدمين",

@@ -1,194 +1,151 @@
 .form-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #fff;
-    border-radius: 10px;
-    direction: rtl; 
-    text-align: right;
-  }
-  
-  .form-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 1rem;
-  }
-  
-  .form-header h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0;
-    color: #333;
-  }
-  
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  direction: rtl;
+  text-align: right;
+}
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
+}
+.form-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  color: #333;
+}
+.user-form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.form-control {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 0.6rem 0.3rem;
+  font-size: 1rem;
+  background: transparent;
+  transition: border-color 0.3s;
+}
+.form-control:focus {
+  outline: none;
+  border-color: #007bff;
+}
+textarea.form-control {
+  grid-column: span 4;
+  resize: vertical;
+  min-height: 80px;
+}
+.form-actions {
+  grid-column: span 4;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.form-label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  appearance: none;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border 0.2s ease;
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+.custom-arrow {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #555;
+  font-size: 0.8rem;
+}
+.error-message {
+  color: #d9534f;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+/* Action Buttons */
+.btn-save {
+  background: linear-gradient(135deg, #3eb489 0%, #2ecc71 100%);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+  background: linear-gradient(135deg, #34a678 0%, #27ae60 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-cancel {
+  background: linear-gradient(135deg, #ff6b6b 0%, #e63946 100%);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background: linear-gradient(135deg, #e85a5a 0%, #c92d3a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+label.required::after {
+  content: " *";
+  color: red;
+}
+@media (max-width: 576px) {
   .user-form {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
   }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    position: relative;
+}
+@media (max-width: 992px) {
+  .user-form {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .form-group label {
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 0.3rem;
-    font-weight: 500;
-  }
-  
-  .form-control {
-    border: none;
-    border-bottom: 1px solid #ccc;
-    padding: 0.6rem 0.3rem;
-    font-size: 1rem;
-    background: transparent;
-    transition: border-color 0.3s;
-  }
-  
-  .form-control:focus {
-    outline: none;
-    border-color: #007bff;
-  }
-  
-  textarea.form-control {
-    grid-column: span 4; 
-    resize: vertical;
-    min-height: 80px;
-  }
-  
-  .error-message {
-    color: #dc3545;
-    font-size: 0.8rem;
-    margin-top: 0.2rem;
-  }
-  
-  .form-actions {
-    grid-column: span 4; /* full row */
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-  
-  .btn {
-    padding: 0.6rem 1.5rem;
-    border: none;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .btn-primary {
-    background: #007bff;
-    color: white;
-  }
-  
-  .btn-primary:hover:not(:disabled) {
-    background: #0056b3;
-  }
-  
-  .btn-secondary {
-    background: #6c757d;
-    color: white;
-  }
-  
-  .btn-secondary:hover {
-    background: #5a6268;
-  }
-  
-  @media (max-width: 992px) {
-    .user-form {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .user-form {
-      grid-template-columns: 1fr;
-    }
-  }
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-    position: relative;
-  }
-  
-  .form-label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
-  
-  .custom-select-wrapper {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .custom-select {
-    width: 100%;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    appearance: none;
-    background-color: #fff;
-    cursor: pointer;
-    transition: border 0.2s ease;
-  }
-  
-  .custom-select:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px rgba(0,123,255,0.2);
-  }
-  
-  .custom-arrow {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: #555;
-    font-size: 0.8rem;
-  }
-  
-  .error-message {
-    color: #d9534f;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-  }
-  .btn-save {
-    background-color: #007bff; 
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-  }
-  
-  .btn-save:hover {
-    background-color: #0056b3;
-  }
-  
-  .btn-cancel {
-    background-color: #dc3545; 
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    margin-right: 8px;
-    transition: background-color 0.2s ease;
-  }
-  
-  .btn-cancel:hover {
-    background-color: #a71d2a;
-  }
-  
+}

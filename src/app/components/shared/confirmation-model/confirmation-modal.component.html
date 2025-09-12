@@ -1,0 +1,21 @@
+<div class="modal-backdrop" *ngIf="visible">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2>{{ title }}</h2>
+      <button class="close-btn" (click)="cancel.emit()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <p>{{ message }}</p>
+    </div>
+
+    <div class="modal-actions">
+      <button *ngIf="showCancel" class="btn btn-cancel" (click)="cancel.emit()">
+        {{ cancelText }}
+      </button>
+      <button class="btn btn-save" (click)="confirm.emit()">
+        {{ confirmText }}
+      </button>
+    </div>
+  </div>
+</div>

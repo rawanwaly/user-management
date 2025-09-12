@@ -34,23 +34,6 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  searchUsers(): void {
-    if (!this.searchTerm) {
-      this.filteredUsers = this.users;
-      return;
-    }
-
-    const term = this.searchTerm.toLowerCase();
-    this.filteredUsers = this.users.filter(user =>
-      user.firstNameAR.toLowerCase().includes(term) ||
-      user.lastNameAR.toLowerCase().includes(term) ||
-      user.firstNameEN.toLowerCase().includes(term) ||
-      user.lastNameEN.toLowerCase().includes(term) ||
-      user.email.toLowerCase().includes(term) ||
-      user.mobileNumber.includes(term)
-    );
-  }
-
   editUser(userId: number): void {
     this.router.navigate(['/user/edit', userId]);
   }

@@ -7,19 +7,6 @@
       Add New User
     </button>
   </div>
-
-  <div class="search-section">
-    <!-- <div class="search-box">
-      <input
-        type="text"
-        [(ngModel)]="searchTerm"
-        (input)="searchUsers()"
-        placeholder="Search users by name, email, or mobile number..."
-        class="search-input">
-      <span class="search-icon">🔍</span>
-    </div> -->
-  </div>
-
   <div class="users-grid" *ngIf="filteredUsers.length > 0">
     <div class="user-card" *ngFor="let user of filteredUsers">
       <div class="user-avatar">
