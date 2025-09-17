@@ -1,0 +1,92 @@
+.custom-grid {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-grid th, .custom-grid td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: right; 
+}
+
+.custom-grid th {
+  background: #009688;
+  color: #fff;
+  cursor: pointer;
+}
+
+.custom-grid tr:nth-child(even) {
+  background: #f9f9f9;
+}
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #009688;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #009688;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.pagination button:disabled {
+  background: #d6d6d6;
+  color: #888;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.pagination span {
+  padding: 6px 12px;
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #333;
+}
+
+.grid-header {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+}
+
+.grid-header input[type="text"] {
+  width: 500px;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin: auto;
+}
+
+.grid-header input[type="text"]::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.grid-header input[type="text"]:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+}

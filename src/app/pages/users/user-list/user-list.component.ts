@@ -1,40 +1,33 @@
-// user-list.component.ts
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import {  UserService } from '../user.service';
+import { Component, OnInit } from '@angular/core';
+import { GridConfig } from 'src/app/components/models/grid.models';
+import { UserService } from '../user.service';
 import { User } from '../user.model';
+import { Router } from '@angular/router';
+import { USER_GRID_CONFIG } from 'src/app/components/configs/user-grid.config';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit, OnDestroy {
+export class UserListComponent implements OnInit {
   users: User[] = [];
-  filteredUsers: User[] = [];
-  searchTerm: string = '';
-  private subscription: Subscription = new Subscription();
+  searchTerm = '';
+  userGridConfig = USER_GRID_CONFIG;   
 
-  constructor(
-    private userService: UserService,
-    private router: Router
-  ) { }
+
+  constructor(private userService: UserService,    private router: Router) {}
 
   ngOnInit(): void {
-    this.subscription.add(
-      this.userService.getAll().subscribe(users => {
-        this.users = users;
-        this.filteredUsers = users;
-      })
-    );
+    this.loadUsers();
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  loadUsers() {
+    this.userService.getAll().subscribe(res => {
+      this.users = res;
+    });
   }
-
-  editUser(userId: number): void {
+editUser(userId: number): void {
     this.router.navigate(['/user/edit', userId]);
   }
 
@@ -47,4 +40,5 @@ export class UserListComponent implements OnInit, OnDestroy {
   addNewUser(): void {
     this.router.navigate(['/user/add']);
   }
+  
 }

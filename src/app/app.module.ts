@@ -13,6 +13,7 @@ import { UserFormComponent } from './pages/users/user-form/user-form.component';
 import { UserService } from './pages/users/user.service';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from "src/app/components/shared/shared.module";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Factory for i18n loader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -41,7 +42,8 @@ export function HttpLoaderFactory(http: HttpClient) {
             deps: [HttpClient]
         }
     }),
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule
 ],
   providers: [UserService],
   bootstrap: [AppComponent]

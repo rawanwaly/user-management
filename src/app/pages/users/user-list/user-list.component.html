@@ -1,42 +1,27 @@
-
 <div class="user-list-container">
-  <div class="header-section">
-    <h1>All Users</h1>
-    <button class="add-btn" (click)="addNewUser()">
-      <span class="btn-icon">+</span>
+   <div class="header">
+    <div class="title">
+      <h1>All Users</h1>
+    </div>
+    <button class="btn add" (click)="addNewUser()">
+      <span class="plus">+</span>
       Add New User
     </button>
   </div>
-  <div class="users-grid" *ngIf="filteredUsers.length > 0">
-    <div class="user-card" *ngFor="let user of filteredUsers">
-      <div class="user-avatar">
-        {{ user.firstNameAR.charAt(0) + user.lastNameAR.charAt(0) }}
-      </div>
-      <div class="user-info">
-        <h3>{{ user.firstNameAR }} {{ user.lastNameAR }}</h3>
-        <div class="user-details">
-          <p><strong>Email:</strong> {{ user.email }}</p>
-          <p><strong>Mobile:</strong> {{ user.mobileNumber }}</p>
-          <p><strong>Marital Status:</strong> {{ user.maritalStatus }}</p>
-          <p><strong>Address:</strong> {{ user.address }}</p>
-        </div>
-      </div>
-      <div class="user-actions">
-        <button class="edit-btn" (click)="editUser(user.id)">
-          ✏️ Edit
-        </button>
-        <button class="delete-btn" (click)="deleteUser(user.id)">
-          🗑️ Delete
-        </button>
-      </div>
-    </div>
-  </div>
 
-  <div class="empty-state" *ngIf="filteredUsers.length === 0">
+  <!-- Custom Grid -->
+  <app-custom-grid
+    *ngIf="users.length > 0"
+    [config]="userGridConfig">
+  </app-custom-grid>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="users.length === 0">
     <div class="empty-icon">👥</div>
     <h3>No users found</h3>
     <p *ngIf="searchTerm">No users match your search criteria. Try a different search term.</p>
-    <p *ngIf="!searchTerm && users.length === 0">No users have been added yet. Click "Add New User" to get started.</p>
+    <p *ngIf="!searchTerm && users.length === 0">
+      No users have been added yet. Click "Add New User" to get started.
+    </p>
   </div>
 </div>
-

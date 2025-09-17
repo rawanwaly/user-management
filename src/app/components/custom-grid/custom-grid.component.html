@@ -1,0 +1,48 @@
+<div class="grid-header">
+  <input type="text"
+         placeholder="Search..."
+         [(ngModel)]="searchTerm"
+         (input)="onSearchChange()" />
+</div>
+
+<table class="custom-grid">
+  <thead>
+    <tr>
+      <th *ngIf="config.checkboxSelection">
+        <input type="checkbox"
+               [checked]="selectAllCurrentPage"
+               (change)="onSelectAllChange($event)" />
+      </th>
+
+      <th *ngFor="let col of config.columns" (click)="col.sortable && onSort(col.field)">
+        {{ col.header }}
+        <span *ngIf="sortColumn === col.field">
+          {{ sortDirection === 'asc' ? '▲' : '▼' }}
+        </span>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let row of data">
+      <td *ngIf="config.checkboxSelection">
+        <input type="checkbox"
+               [checked]="selectedIds.has(row.id)"
+               (change)="onSelectRowChange(row.id, $event)" />
+      </td>
+
+      <td *ngFor="let col of config.columns">
+        {{ getCellValue(row, col.field) }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Pagination -->
+<div class="pagination">
+  <button [disabled]="currentPage === 1"
+          (click)="onPageChange(currentPage - 1)">Prev</button>
+  <span>Page {{currentPage}} / {{ Math.ceil(totalRecords / pageSize) }}</span>
+  <button [disabled]="currentPage >= totalRecords / pageSize"
+          (click)="onPageChange(currentPage + 1)">Next</button>
+</div>
