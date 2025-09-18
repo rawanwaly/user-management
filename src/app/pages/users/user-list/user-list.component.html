@@ -1,11 +1,11 @@
 <div class="user-list-container">
-   <div class="header">
+  <div class="header">
     <div class="title">
-      <h1>All Users</h1>
+      <h1>{{ 'User.AllUsers' | translate }}</h1>
     </div>
     <button class="btn add" (click)="addNewUser()">
       <span class="plus">+</span>
-      Add New User
+      {{ 'User.AddUser' | translate }}
     </button>
   </div>
 
@@ -18,10 +18,10 @@
   <!-- Empty State -->
   <div class="empty-state" *ngIf="users.length === 0">
     <div class="empty-icon">👥</div>
-    <h3>No users found</h3>
-    <p *ngIf="searchTerm">No users match your search criteria. Try a different search term.</p>
+    <h3>{{ 'User.NoUsersFound' | translate }}</h3>
+    <p *ngIf="searchTerm">{{ 'User.NoSearchResults' | translate }}</p>
     <p *ngIf="!searchTerm && users.length === 0">
-      No users have been added yet. Click "Add New User" to get started.
+      {{ 'User.NoUsersYet' | translate }}
     </p>
   </div>
 </div>

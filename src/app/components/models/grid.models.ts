@@ -1,10 +1,12 @@
+import { Observable } from "rxjs";
+
 export type SortDirection = 'asc' | 'desc' | null;
 
-export interface GridRequest {
+export interface GridRequest<T = any> {
   page: number;
   pageSize: number;
   search?: string;
-  sortColumn?: string;
+  sortColumn?: keyof T;
   sortDirection?: SortDirection;
 }
 
@@ -14,24 +16,37 @@ export interface GridResponse<T> {
 }
 
 export interface GridColumn {
-  field: string;          // model property name
-  header: string;         // shown label
+  field: string;
+  header: string; 
   sortable?: boolean;
-  width?: string;         // e.g. '120px' or '10%'
-  type?: 'text'|'number'|'email'|'checkbox'|'actions'|'date';
+  width?: string; 
+  //call back to format cell value
+  // format?: (value: any, row?: any) => string;
+  type?: 'text' | 'number' | 'email' | 'checkbox' | 'actions' | 'date';
+  //can remove
   visible?: boolean;
-  align?: 'left'|'center'|'right';
+  //more options generic 
+  //add css classes on column cells
+  align?: 'left' | 'center' | 'right';
 }
-
-export interface GridConfig {
+export interface GridConfig<T = any> {
   columns: GridColumn[];
   pageSizeOptions?: number[];
   defaultPageSize?: number;
-  serverMode?: boolean;         // true => ask server for pages
-  selectionMode?: 'page'|'all'; // which "select all" behavior
+  serverMode?: boolean;
+  selectionMode?: 'page' | 'all';
   checkboxSelection?: boolean;
-    searchTerm?: string;   // 👈 new
-
+  //to hold search term from parent component
+  searchTerm?: string;
+  actions?: GridAction[];
+  reloadFlag?: number;
+  fetchPagedData?: (req: GridRequest) => Observable<GridResponse<T>>;
+  fetchAllData?: () => Observable<T[]>;
+  fetchAllIds?: (search: string) => Observable<number[]>;
 }
-
-
+//can change position of action button
+export interface GridAction {
+  label: string;
+  type?: 'primary' | 'danger' | 'default';
+  onClick: (row: any) => void;
+}

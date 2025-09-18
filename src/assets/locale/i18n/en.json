@@ -11,6 +11,7 @@
     "MaritalStatus": "Marital Status",
     "SelectStatus": "Select",
     "Address": "Address",
+    "Search": "Search...",
     "AllUsers": "All Users",
     "Status": {
       "Single": "Single",
@@ -38,7 +39,9 @@
     "Save": "Save",
     "Update": "Update",
     "Confirm": "Confirm",
-    "Close": "Close"
+    "Close": "Close",
+    "Delete": "Delete",
+    "Edit": "Edit"
   },
   "Home": {
     "Welcome": "Welcome to User Management System",

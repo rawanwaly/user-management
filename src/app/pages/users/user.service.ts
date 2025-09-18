@@ -3,7 +3,10 @@ import { User } from './user.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
-import { GridRequest, GridResponse } from 'src/app/components/models/grid.models';
+import {
+  GridRequest,
+  GridResponse,
+} from 'src/app/components/models/grid.models';
 @Injectable({
   providedIn: 'root',
 })
@@ -47,19 +50,26 @@ export class UserService {
     }
     return this.http.get<boolean>(url);
   }
- // 🔹 Server Mode: fetch paged users
+  getAllIds(search: string = ''): Observable<number[]> {
+    return this.http.get<number[]>(`${this.apiUrl}/all-ids`, {
+      params: { search },
+    });
+  }
+
   getPagedUsers(req: GridRequest): Observable<GridResponse<User>> {
     let params = new HttpParams()
       .set('page', req.page)
       .set('pageSize', req.pageSize);
 
-  if (req.search) params = params.set('search', req.search); 
+    if (req.search) params = params.set('search', req.search);
     if (req.sortColumn) {
       params = params
-        .set('sortColumn', req.sortColumn)
+        .set('sortColumn', String(req.sortColumn))
         .set('sortDirection', req.sortDirection || 'asc');
     }
 
-    return this.http.get<GridResponse<User>>(`${this.apiUrl}/paged`, { params });
+    return this.http.get<GridResponse<User>>(`${this.apiUrl}/paged`, {
+      params,
+    });
   }
 }

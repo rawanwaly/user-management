@@ -11,6 +11,7 @@
     "MaritalStatus": "الحالة الاجتماعية",
     "SelectStatus": "اختر",
     "Address": "العنوان",
+    "Search": "ابحث...",
     "AllUsers": "جميع المستخدمين",
     "Status": {
       "Single": "أعزب",
@@ -38,7 +39,9 @@
     "Save": "حفظ",
     "Update": "تحديث",
     "Confirm": "تأكيد",
-    "Close": "إغلاق"
+    "Close": "إغلاق",
+    "Delete": "حذف",
+    "Edit": "تعديل"
   },
   "Home": {
     "Welcome": "مرحبًا بك في نظام إدارة المستخدمين",

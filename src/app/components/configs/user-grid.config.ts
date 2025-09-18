@@ -1,21 +1,20 @@
 import { GridConfig } from "../models/grid.models";
 
 export const USER_GRID_CONFIG: GridConfig = {
-  serverMode: false,
+  serverMode: true,
   defaultPageSize: 10,
   pageSizeOptions: [5, 10, 25, 50],
   checkboxSelection: true,
-  selectionMode: 'page',
+  selectionMode: 'all',
   columns: [
-    { field: 'id', header: 'ID', sortable: true, width: '80px' },
-    { field: 'firstNameEN', header: 'First Name (EN)', sortable: true },
-    { field: 'lastNameEN', header: 'Last Name (EN)', sortable: true },
-    { field: 'firstNameAR', header: 'الاسم الأول (AR)', sortable: true },
-    { field: 'lastNameAR', header: 'الاسم الأخير (AR)', sortable: true },
-    { field: 'email', header: 'Email', sortable: false },
-    { field: 'mobileNumber', header: 'Mobile', sortable: true },
-    { field: 'maritalStatus', header: 'Marital Status', sortable: true },
-    { field: 'address', header: 'Address', sortable: false },
+    { field: 'id', header: 'ID', sortable: false, width: '80px' },
+    { field: 'firstNameEN', header: 'User.FirstNameEN', sortable: true },
+    { field: 'lastNameEN', header: 'User.LastNameEN', sortable: true },
+    { field: 'firstNameAR', header: 'User.FirstNameAR', sortable: true },
+    { field: 'lastNameAR', header: 'User.LastNameAR', sortable: true },
+    { field: 'email', header: 'User.Email', sortable: false },
+    { field: 'mobileNumber', header: 'User.Mobile', sortable: true },
+    { field: 'maritalStatus', header: 'User.MaritalStatus', sortable: true },
+    { field: 'address', header: 'User.Address', sortable: false },
   ]
 };
-
