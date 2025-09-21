@@ -32,6 +32,22 @@ export class CustomGridComponent<T extends { id: number }> implements OnInit {
     this.pageSize = this.config.defaultPageSize || 10;
     this.loadData();
   }
+  onDeactivateSelected() {
+    if (this.config.onBulkDeactivate) {
+      this.config.onBulkDeactivate([...this.selectedIds]);
+    }
+    this.selectedIds.clear();
+    this.syncCheckboxState();
+  }
+  onBulkExport() {
+    if (this.config.onBulkExport) {
+      this.config.onBulkExport(Array.from(this.selectedIds));
+    }
+  }
+  onClearSelection() {
+    this.selectedIds.clear();
+    this.syncCheckboxState();
+  }
 
   onSearchChange(): void {
     this.currentPage = 1;
@@ -92,16 +108,15 @@ export class CustomGridComponent<T extends { id: number }> implements OnInit {
     }
   }
 
-onSort(col: string) {
-  if (this.sortColumn === col) {
-    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-  } else {
-    this.sortColumn = col as keyof T; 
-    this.sortDirection = 'asc';
+  onSort(col: string) {
+    if (this.sortColumn === col) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = col as keyof T;
+      this.sortDirection = 'asc';
+    }
+    this.loadData();
   }
-  this.loadData();
-}
-
 
   onPageChange(page: number) {
     if (page < 1 || page > Math.ceil(this.totalRecords / this.pageSize)) return;
@@ -144,6 +159,19 @@ onSort(col: string) {
       } else {
         this.data.forEach((u) => this.selectedIds.delete((u as any).id));
       }
+    }
+  }
+  onActivateSelected() {
+    if (
+      confirm(
+        `Are you sure you want to activate ${this.selectedIds.size} user(s)?`
+      )
+    ) {
+      if (this.config.onBulkActivate) {
+        this.config.onBulkActivate([...this.selectedIds]);
+      }
+      this.selectedIds.clear();
+      this.syncCheckboxState();
     }
   }
 

@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
 export type SortDirection = 'asc' | 'desc' | null;
 
@@ -17,15 +17,15 @@ export interface GridResponse<T> {
 
 export interface GridColumn {
   field: string;
-  header: string; 
+  header: string;
   sortable?: boolean;
-  width?: string; 
+  width?: string;
   //call back to format cell value
   // format?: (value: any, row?: any) => string;
   type?: 'text' | 'number' | 'email' | 'checkbox' | 'actions' | 'date';
   //can remove
   visible?: boolean;
-  //more options generic 
+  //more options generic
   //add css classes on column cells
   align?: 'left' | 'center' | 'right';
 }
@@ -43,6 +43,10 @@ export interface GridConfig<T = any> {
   fetchPagedData?: (req: GridRequest) => Observable<GridResponse<T>>;
   fetchAllData?: () => Observable<T[]>;
   fetchAllIds?: (search: string) => Observable<number[]>;
+  onBulkDeactivate?: (ids: number[]) => void;
+  onBulkActivate?: (ids: number[]) => void;
+  onBulkExport?: (ids: number[]) => void;
+  rowClass?: (row: T) => string;
 }
 //can change position of action button
 export interface GridAction {

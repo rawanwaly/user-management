@@ -8,4 +8,5 @@ export interface User {
   mobileNumber: string;
   maritalStatus: string;
   address: string;
+  isActive: boolean;
 }

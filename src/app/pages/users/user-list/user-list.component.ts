@@ -13,7 +13,7 @@ import { USER_GRID_CONFIG } from 'src/app/components/configs/user-grid.config';
 export class UserListComponent implements OnInit {
   users: User[] = [];
   searchTerm = '';
-  userGridConfig!: GridConfig<User>;   
+  userGridConfig!: GridConfig<User>;
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -26,24 +26,55 @@ export class UserListComponent implements OnInit {
       fetchPagedData: (req) => this.userService.getPagedUsers(req),
       fetchAllData: () => this.userService.getAll(),
       fetchAllIds: (search) => this.userService.getAllIds(search),
+      rowClass: (user: User) => (!user.isActive ? 'inactive-row' : ''),
+      onBulkActivate: (ids: number[]) => {
+        this.userService.activateSelected(ids).subscribe(() => {
+          this.userGridConfig = {
+            ...this.userGridConfig,
+            reloadFlag: new Date().getTime(),
+          };
+        });
+      },
+      onBulkDeactivate: (ids: number[]) => {
+        if (
+          confirm(`Are you sure you want to deactivate ${ids.length} user(s)?`)
+        ) {
+          this.userService.deactivateSelected(ids).subscribe(() => {
+            this.userGridConfig = {
+              ...this.userGridConfig,
+              reloadFlag: new Date().getTime(),
+            };
+          });
+        }
+      },
+      onBulkExport: (ids: number[]) => {
+        this.userService.exportSelected(ids).subscribe((file) => {
+          const url = window.URL.createObjectURL(file);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Users_Selected_${new Date().toISOString()}.xlsx`;
+          a.click();
+          window.URL.revokeObjectURL(url);
+        });
+      },
 
       actions: [
         {
           label: 'Actions.Edit',
           type: 'primary',
-          onClick: (row: User) => this.editUser(row.id)
+          onClick: (row: User) => this.editUser(row.id),
         },
         {
           label: 'Actions.Delete',
           type: 'danger',
-          onClick: (row: User) => this.deleteUser(row.id)
-        }
-      ]
+          onClick: (row: User) => this.deactivateUser(row.id),
+        },
+      ],
     };
   }
 
   loadUsers() {
-    this.userService.getAll().subscribe(res => {
+    this.userService.getAll().subscribe((res) => {
       this.users = res;
     });
   }
@@ -52,12 +83,12 @@ export class UserListComponent implements OnInit {
     this.router.navigate(['/user/edit', userId]);
   }
 
-  deleteUser(userId: number): void {
-    if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.delete(userId).subscribe(() => {
+  deactivateUser(userId: number): void {
+    if (confirm('Are you sure you want to deactivate this user?')) {
+      this.userService.deactivateUser(userId).subscribe(() => {
         this.userGridConfig = {
           ...this.userGridConfig,
-          reloadFlag: new Date().getTime()
+          reloadFlag: new Date().getTime(),
         };
       });
     }

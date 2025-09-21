@@ -5,7 +5,7 @@ export const USER_GRID_CONFIG: GridConfig = {
   defaultPageSize: 10,
   pageSizeOptions: [5, 10, 25, 50],
   checkboxSelection: true,
-  selectionMode: 'all',
+  selectionMode: 'page',
   columns: [
     { field: 'id', header: 'ID', sortable: false, width: '80px' },
     { field: 'firstNameEN', header: 'User.FirstNameEN', sortable: true },
