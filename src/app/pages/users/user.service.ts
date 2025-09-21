@@ -31,10 +31,6 @@ export class UserService {
     return this.http.put<User>(`${this.apiUrl}/${id}`, user);
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
-
   checkEmailExists(email: string, excludeId?: number): Observable<boolean> {
     let url = `${this.apiUrl}/check-email?email=${email}`;
     if (excludeId) {
@@ -70,6 +66,24 @@ export class UserService {
 
     return this.http.get<GridResponse<User>>(`${this.apiUrl}/paged`, {
       params,
+    });
+  }
+  deactivateUser(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/deactivate/${id}`, {});
+  }
+  deactivateSelected(ids: number[]): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/deactivate-selected`, ids);
+  }
+  activateUser(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/activate/${id}`, {});
+  }
+  activateSelected(ids: number[]): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/activate-selected`, ids);
+  }
+
+  exportSelected(ids: number[]): Observable<Blob> {
+    return this.http.post(`${this.apiUrl}/export-excel`, ids, {
+      responseType: 'blob',
     });
   }
 }
