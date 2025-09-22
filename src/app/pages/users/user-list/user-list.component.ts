@@ -4,57 +4,66 @@ import { UserService } from '../user.service';
 import { User } from '../user.model';
 import { Router } from '@angular/router';
 import { USER_GRID_CONFIG } from 'src/app/components/configs/user-grid.config';
+import { TranslateService } from '@ngx-translate/core';
+import { firstValueFrom } from 'rxjs';
+import { FileService } from '../file.service';
+import { ConfirmationService } from 'src/app/components/shared/confirmation-model/service/confirmation.service';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css']
+  styleUrls: ['./user-list.component.css'],
 })
 export class UserListComponent implements OnInit {
-  users: User[] = [];
-  searchTerm = '';
+  users$ = this.userService.getAll();
   userGridConfig!: GridConfig<User>;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private translate: TranslateService,
+    public confirmService: ConfirmationService,
+    private fileService: FileService
+  ) {}
 
   ngOnInit(): void {
-    this.loadUsers();
+    this.userGridConfig = this.buildGridConfig();
+  }
 
-    this.userGridConfig = {
+  private buildGridConfig(): GridConfig<User> {
+    return {
       ...USER_GRID_CONFIG,
 
       fetchPagedData: (req) => this.userService.getPagedUsers(req),
       fetchAllData: () => this.userService.getAll(),
       fetchAllIds: (search) => this.userService.getAllIds(search),
       rowClass: (user: User) => (!user.isActive ? 'inactive-row' : ''),
-      onBulkActivate: (ids: number[]) => {
-        this.userService.activateSelected(ids).subscribe(() => {
-          this.userGridConfig = {
-            ...this.userGridConfig,
-            reloadFlag: new Date().getTime(),
-          };
-        });
-      },
-      onBulkDeactivate: (ids: number[]) => {
-        if (
-          confirm(`Are you sure you want to deactivate ${ids.length} user(s)?`)
-        ) {
-          this.userService.deactivateSelected(ids).subscribe(() => {
-            this.userGridConfig = {
-              ...this.userGridConfig,
-              reloadFlag: new Date().getTime(),
-            };
-          });
-        }
-      },
-      onBulkExport: (ids: number[]) => {
-        this.userService.exportSelected(ids).subscribe((file) => {
-          const url = window.URL.createObjectURL(file);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `Users_Selected_${new Date().toISOString()}.xlsx`;
-          a.click();
-          window.URL.revokeObjectURL(url);
+
+      onBulkActivate: (ids) =>
+        this.confirmService.openConfirmDialog(
+          this.translate.instant('User.ConfirmActivateUsers', { count: ids.length }),
+          '',
+          () => {
+            firstValueFrom(this.userService.activateSelected(ids)).then(() =>
+              this.refreshGrid()
+            );
+          }
+        ),
+
+      onBulkDeactivate: (ids) =>
+        this.confirmService.openConfirmDialog(
+          this.translate.instant('User.ConfirmDeactivateUsers', { count: ids.length }),
+          '',
+          () => {
+            firstValueFrom(this.userService.deactivateSelected(ids)).then(() =>
+              this.refreshGrid()
+            );
+          }
+        ),
+
+      onBulkExport: (ids) => {
+        firstValueFrom(this.userService.exportSelected(ids)).then((file) => {
+          this.fileService.download(file, `Users_Selected_${new Date().toISOString()}.xlsx`);
         });
       },
 
@@ -73,28 +82,30 @@ export class UserListComponent implements OnInit {
     };
   }
 
-  loadUsers() {
-    this.userService.getAll().subscribe((res) => {
-      this.users = res;
-    });
+  deactivateUser(userId: number): void {
+    this.confirmService.openConfirmDialog(
+      this.translate.instant('User.ConfirmDeactivateUser'),
+      '',
+      () => {
+        firstValueFrom(this.userService.deactivateUser(userId)).then(() =>
+          this.refreshGrid()
+        );
+      }
+    );
   }
 
   editUser(userId: number): void {
     this.router.navigate(['/user/edit', userId]);
   }
 
-  deactivateUser(userId: number): void {
-    if (confirm('Are you sure you want to deactivate this user?')) {
-      this.userService.deactivateUser(userId).subscribe(() => {
-        this.userGridConfig = {
-          ...this.userGridConfig,
-          reloadFlag: new Date().getTime(),
-        };
-      });
-    }
-  }
-
   addNewUser(): void {
     this.router.navigate(['/user/add']);
+  }
+
+  private refreshGrid(): void {
+    this.userGridConfig = {
+      ...this.userGridConfig,
+      reloadFlag: Date.now(),
+    };
   }
 }

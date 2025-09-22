@@ -10,18 +10,26 @@
   </div>
 
   <!-- Custom Grid -->
-  <app-custom-grid
-    *ngIf="users.length > 0"
-    [config]="userGridConfig">
-  </app-custom-grid>
+  <ng-container *ngIf="users$ | async as users">
+    <app-custom-grid
+      *ngIf="users.length > 0"
+      [config]="userGridConfig">
+    </app-custom-grid>
 
-  <!-- Empty State -->
-  <div class="empty-state" *ngIf="users.length === 0">
-    <div class="empty-icon">👥</div>
-    <h3>{{ 'User.NoUsersFound' | translate }}</h3>
-    <p *ngIf="searchTerm">{{ 'User.NoSearchResults' | translate }}</p>
-    <p *ngIf="!searchTerm && users.length === 0">
-      {{ 'User.NoUsersYet' | translate }}
-    </p>
-  </div>
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="users.length === 0">
+      <div class="empty-icon">👥</div>
+      <h3>{{ 'User.NoUsersFound' | translate }}</h3>
+      <p>{{ 'User.NoUsersYet' | translate }}</p>
+    </div>
+  </ng-container>
 </div>
+
+<app-confirmation-modal
+  [visible]="confirmService.modalVisible"
+  [title]="confirmService.modalTitle"
+  [message]="confirmService.modalMessage"
+  (confirm)="confirmService.confirm()"
+  (cancel)="confirmService.closeModal()"
+>
+</app-confirmation-modal>
