@@ -13,6 +13,10 @@
     "Address": "Address",
     "Search": "Search...",
     "AllUsers": "All Users",
+    "ConfirmDeactivateUser": "Are you sure you want to deactivate this user?",
+    "ConfirmDeactivateUsers": "Are you sure you want to deactivate {{count}} user(s)?",
+    "ConfirmActivateUser": "Are you sure you want to activate this user?",
+    "ConfirmActivateUsers": "Are you sure you want to activate {{count}} user(s)?",
     "Status": {
       "Single": "Single",
       "Married": "Married",
@@ -54,5 +58,13 @@
     "home": "Home",
     "allUsers": "All Users",
     "addUser": "Add User"
+  },
+  "Grid": {
+    "Actions": "Actions",
+    "Prev": "Prev",
+    "Next": "Next",
+    "Page": "Page",
+    "Of": "of",
+    "Show": "Show"
   }
 }
