@@ -50,7 +50,12 @@ export interface GridConfig<T = any> {
 }
 //can change position of action button
 export interface GridAction {
-  label: string;
-  type?: 'primary' | 'danger' | 'default';
+  label: string | ((row: any) => string);
+  type?:
+    | 'primary'
+    | 'danger'
+    | 'success'
+    | 'default'
+    | ((row: any) => 'primary' | 'danger' | 'success' | 'default');
   onClick: (row: any) => void;
 }

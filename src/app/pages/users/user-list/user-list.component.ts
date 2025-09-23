@@ -15,7 +15,8 @@ import { ConfirmationService } from 'src/app/components/shared/confirmation-mode
   styleUrls: ['./user-list.component.css'],
 })
 export class UserListComponent implements OnInit {
- @ViewChild('statusTemplate', { static: true }) statusTemplate!: TemplateRef<any>;
+  @ViewChild('statusTemplate', { static: true })
+  statusTemplate!: TemplateRef<any>;
   users$ = this.userService.getAll();
   userGridConfig!: GridConfig<User>;
   constructor(
@@ -30,66 +31,81 @@ export class UserListComponent implements OnInit {
     this.userGridConfig = this.buildGridConfig();
   }
 
-  private buildGridConfig(): GridConfig<User> {
-    return {
-      ...USER_GRID_CONFIG,
-columns: [
-      ...USER_GRID_CONFIG.columns.map(col => {
+ private buildGridConfig(): GridConfig<User> {
+  return {
+    ...USER_GRID_CONFIG,
+    columns: [
+      ...USER_GRID_CONFIG.columns.map((col) => {
         if (col.field === 'isActive') {
           return {
             ...col,
-            template: this.statusTemplate
+            template: this.statusTemplate,
           };
         }
         return col;
-      })
+      }),
     ],
-      fetchPagedData: (req) => this.userService.getPagedUsers(req),
-      fetchAllData: () => this.userService.getAll(),
-      fetchAllIds: (search) => this.userService.getAllIds(search),
+    fetchPagedData: (req) => this.userService.getPagedUsers(req),
+    fetchAllData: () => this.userService.getAll(),
+    fetchAllIds: (search) => this.userService.getAllIds(search),
 
-      onBulkActivate: (ids) =>
-        this.confirmService.openConfirmDialog(
-          this.translate.instant('User.ConfirmActivateUsers', { count: ids.length }),
-          '',
-          () => {
-            firstValueFrom(this.userService.activateSelected(ids)).then(() =>
-              this.refreshGrid()
-            );
+    onBulkActivate: (ids) =>
+      this.confirmService.openConfirmDialog(
+        this.translate.instant('User.ConfirmActivateUsers', {
+          count: ids.length,
+        }),
+        '',
+        () => {
+          firstValueFrom(this.userService.activateSelected(ids)).then(() =>
+            this.refreshGrid()
+          );
+        }
+      ),
+
+    onBulkDeactivate: (ids) =>
+      this.confirmService.openConfirmDialog(
+        this.translate.instant('User.ConfirmDeactivateUsers', {
+          count: ids.length,
+        }),
+        '',
+        () => {
+          firstValueFrom(this.userService.deactivateSelected(ids)).then(() =>
+            this.refreshGrid()
+          );
+        }
+      ),
+
+    onBulkExport: (ids) => {
+      firstValueFrom(this.userService.exportSelected(ids)).then((file) => {
+        this.fileService.download(
+          file,
+          `Users_Selected_${new Date().toISOString()}.xlsx`
+        );
+      });
+    },
+
+    actions: [
+      {
+        label: (row: User) =>
+          row.isActive ? 'Actions.Deactivate' : 'Actions.Activate',
+        type: (row: User) => (row.isActive ? 'danger' : 'success'),
+        onClick: (row: User) => {
+          if (row.isActive) {
+            this.deactivateUser(row.id);
+          } else {
+            this.activateUser(row.id);
           }
-        ),
-
-      onBulkDeactivate: (ids) =>
-        this.confirmService.openConfirmDialog(
-          this.translate.instant('User.ConfirmDeactivateUsers', { count: ids.length }),
-          '',
-          () => {
-            firstValueFrom(this.userService.deactivateSelected(ids)).then(() =>
-              this.refreshGrid()
-            );
-          }
-        ),
-
-      onBulkExport: (ids) => {
-        firstValueFrom(this.userService.exportSelected(ids)).then((file) => {
-          this.fileService.download(file, `Users_Selected_${new Date().toISOString()}.xlsx`);
-        });
+        },
       },
+      {
+        label: 'Actions.Edit',
+        type: 'primary',
+        onClick: (row: User) => this.editUser(row.id),
+      },
+    ],
+  };
+}
 
-      actions: [
-        {
-          label: 'Actions.Edit',
-          type: 'primary',
-          onClick: (row: User) => this.editUser(row.id),
-        },
-        {
-          label: 'Actions.Delete',
-          type: 'danger',
-          onClick: (row: User) => this.deactivateUser(row.id),
-        },
-      ],
-    };
-  }
 
   deactivateUser(userId: number): void {
     this.confirmService.openConfirmDialog(
@@ -102,7 +118,17 @@ columns: [
       }
     );
   }
-
+  activateUser(userId: number): void {
+    this.confirmService.openConfirmDialog(
+      this.translate.instant('User.ConfirmActivateUser'),
+      '',
+      () => {
+        firstValueFrom(this.userService.activateUser(userId)).then(() =>
+          this.refreshGrid()
+        );
+      }
+    );
+  }
   editUser(userId: number): void {
     this.router.navigate(['/user/edit', userId]);
   }

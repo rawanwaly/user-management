@@ -162,11 +162,11 @@ export class CustomGridComponent<T extends { id: number }> implements OnInit {
     }
   }
   onActivateSelected() {
-      if (this.config.onBulkActivate) {
-        this.config.onBulkActivate([...this.selectedIds]);
-      }
-      this.selectedIds.clear();
-      this.syncCheckboxState();
+    if (this.config.onBulkActivate) {
+      this.config.onBulkActivate([...this.selectedIds]);
+    }
+    this.selectedIds.clear();
+    this.syncCheckboxState();
   }
 
   toggleSelectRow(id: number, checked: boolean) {
@@ -184,6 +184,16 @@ export class CustomGridComponent<T extends { id: number }> implements OnInit {
 
   get anySelected(): boolean {
     return this.selectedIds.size > 0;
+  }
+  getActionLabel(action: any, row: any): string {
+    return typeof action.label === 'function'
+      ? action.label(row)
+      : action.label;
+  }
+  getActionType(action: any, row: any): string {
+    return typeof action.type === 'function'
+      ? action.type(row)
+      : action.type || 'default';
   }
 
   private syncCheckboxState() {

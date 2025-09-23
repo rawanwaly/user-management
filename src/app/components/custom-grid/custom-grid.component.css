@@ -122,6 +122,15 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+.custom-grid td button.success {
+  background: #2a994b;
+  color: #fff;
+}
+.custom-grid td button.success:hover {
+  background: #2a994b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
 .custom-grid td button.default {
   background: #bdc3c7;
   color: #2c3e50;

@@ -13,9 +13,9 @@
     "Address": "Address",
     "Search": "Search...",
     "AllUsers": "All Users",
-    "Active":"Active",
-    "Inactive" :"In Active",
-    "activity":"Status",
+    "Active": "Active",
+    "Inactive": "In Active",
+    "activity": "Status",
     "ConfirmDeactivateUser": "Are you sure you want to deactivate this user?",
     "ConfirmDeactivateUsers": "Are you sure you want to deactivate {{count}} user(s)?",
     "ConfirmActivateUser": "Are you sure you want to activate this user?",
@@ -48,7 +48,9 @@
     "Confirm": "Confirm",
     "Close": "Close",
     "Delete": "Delete",
-    "Edit": "Edit"
+    "Edit": "Edit",
+    "Activate": "Activate",
+    "Deactivate": "Deactivate"
   },
   "Home": {
     "Welcome": "Welcome to User Management System",

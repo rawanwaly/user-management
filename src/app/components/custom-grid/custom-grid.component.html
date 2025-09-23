@@ -7,7 +7,7 @@
   />
 </div>
 
-<div *ngIf="anySelected" class="bulk-actions">
+<div *ngIf="selectedIds.size > 1" class="bulk-actions">
   <button
     class="action-btn clear-btn"
     [title]="'Actions.ClearSelection' | translate"
@@ -58,12 +58,12 @@
       >
         {{ col.header | translate }}
         <span *ngIf="sortColumn === col.field">
-          {{ sortDirection === 'asc' ? '▲' : '▼' }}
+          {{ sortDirection === "asc" ? "▲" : "▼" }}
         </span>
       </th>
 
       <th *ngIf="config.actions?.length">
-        {{ 'Grid.Actions' | translate }}
+        {{ "Grid.Actions" | translate }}
       </th>
     </tr>
   </thead>
@@ -98,10 +98,10 @@
       <td *ngIf="config.actions?.length">
         <button
           *ngFor="let action of config.actions"
-          [ngClass]="['btn', action.type]"
+          [ngClass]="['btn', getActionType(action, row)]"
           (click)="action.onClick(row)"
         >
-          {{ action.label | translate }}
+          {{ getActionLabel(action, row) | translate }}
         </button>
       </td>
     </tr>
@@ -114,25 +114,25 @@
     [disabled]="currentPage === 1"
     (click)="onPageChange(currentPage - 1)"
   >
-    {{ 'Grid.Prev' | translate }}
+    {{ "Grid.Prev" | translate }}
   </button>
 
   <span>
-    {{ 'Grid.Page' | translate }} {{ currentPage }}
-    {{ 'Grid.Of' | translate }} {{ Math.ceil(totalRecords / pageSize) }}
+    {{ "Grid.Page" | translate }} {{ currentPage }} {{ "Grid.Of" | translate }}
+    {{ Math.ceil(totalRecords / pageSize) }}
   </span>
 
   <button
     [disabled]="currentPage >= totalRecords / pageSize"
     (click)="onPageChange(currentPage + 1)"
   >
-    {{ 'Grid.Next' | translate }}
+    {{ "Grid.Next" | translate }}
   </button>
 
   <!-- Page Size Dropdown -->
   <div class="page-size">
     <label>
-      {{ 'Grid.Show' | translate }}
+      {{ "Grid.Show" | translate }}
       <select [(ngModel)]="pageSize" (change)="onPageSizeChange()">
         <option *ngFor="let size of config.pageSizeOptions" [value]="size">
           {{ size }}
