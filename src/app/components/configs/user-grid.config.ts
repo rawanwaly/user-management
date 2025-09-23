@@ -1,4 +1,4 @@
-import { GridConfig } from "../models/grid.models";
+import { GridConfig } from '../models/grid.models';
 
 export const USER_GRID_CONFIG: GridConfig = {
   serverMode: true,
@@ -16,5 +16,9 @@ export const USER_GRID_CONFIG: GridConfig = {
     { field: 'mobileNumber', header: 'User.Mobile', sortable: true },
     { field: 'maritalStatus', header: 'User.MaritalStatus', sortable: true },
     { field: 'address', header: 'User.Address', sortable: false },
-  ]
+    {
+      field: 'isActive',
+      header: 'User.activity',
+    },
+  ],
 };
