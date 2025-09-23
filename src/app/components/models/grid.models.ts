@@ -20,13 +20,8 @@ export interface GridColumn {
   header: string;
   sortable?: boolean;
   width?: string;
-  //call back to format cell value
-  // format?: (value: any, row?: any) => string;
   type?: 'text' | 'number' | 'email' | 'checkbox' | 'actions' | 'date';
-  //can remove
   template?: any;
-  //more options generic
-  //add css classes on column cells
   align?: 'left' | 'center' | 'right';
 }
 export interface GridConfig<T = any> {
@@ -36,7 +31,6 @@ export interface GridConfig<T = any> {
   serverMode?: boolean;
   selectionMode?: 'page' | 'all';
   checkboxSelection?: boolean;
-  //to hold search term from parent component
   searchTerm?: string;
   actions?: GridAction[];
   reloadFlag?: number;
@@ -48,7 +42,6 @@ export interface GridConfig<T = any> {
   onBulkExport?: (ids: number[]) => void;
   rowClass?: (row: T) => string;
 }
-//can change position of action button
 export interface GridAction {
   label: string | ((row: any) => string);
   type?:
