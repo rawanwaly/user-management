@@ -17,9 +17,9 @@
     "Inactive": "In Active",
     "activity": "Status",
     "ConfirmDeactivateUser": "Are you sure you want to deactivate this user?",
-    "ConfirmDeactivateUsers": "Are you sure you want to deactivate {{count}} user(s)?",
+    "ConfirmDeactivateUsers": "Are you sure you want to deactivate {{count}} users?",
     "ConfirmActivateUser": "Are you sure you want to activate this user?",
-    "ConfirmActivateUsers": "Are you sure you want to activate {{count}} user(s)?",
+    "ConfirmActivateUsers": "Are you sure you want to activate {{count}} users?",
     "Status": {
       "Single": "Single",
       "Married": "Married",

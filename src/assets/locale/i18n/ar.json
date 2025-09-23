@@ -17,9 +17,9 @@
     "Inactive": "غير فعال",
     "activity": "الحاله",
     "ConfirmDeactivateUser": "هل أنت متأكد أنك تريد إلغاء تنشيط هذا المستخدم؟",
-    "ConfirmDeactivateUsers": "هل أنت متأكد أنك تريد إلغاء تنشيط {{count}} مستخدم/مستخدمين؟",
+    "ConfirmDeactivateUsers": "هل أنت متأكد أنك تريد إلغاء تنشيط {{count}} مستخدمين؟",
     "ConfirmActivateUser": "هل أنت متأكد أنك تريد تنشيط هذا المستخدم؟",
-    "ConfirmActivateUsers": "هل أنت متأكد أنك تريد تنشيط {{count}} مستخدم/مستخدمين؟",
+    "ConfirmActivateUsers": "هل أنت متأكد أنك تريد تنشيط {{count}} مستخدمين؟",
     "Status": {
       "Single": "أعزب",
       "Married": "متزوج",
