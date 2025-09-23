@@ -13,9 +13,9 @@
     "Address": "العنوان",
     "Search": "ابحث...",
     "AllUsers": "جميع المستخدمين",
-    "Active":"فعال" ,
-    "Inactive":"غير فعال",
-    "activity":"الحاله",
+    "Active": "فعال",
+    "Inactive": "غير فعال",
+    "activity": "الحاله",
     "ConfirmDeactivateUser": "هل أنت متأكد أنك تريد إلغاء تنشيط هذا المستخدم؟",
     "ConfirmDeactivateUsers": "هل أنت متأكد أنك تريد إلغاء تنشيط {{count}} مستخدم/مستخدمين؟",
     "ConfirmActivateUser": "هل أنت متأكد أنك تريد تنشيط هذا المستخدم؟",
@@ -49,8 +49,12 @@
     "Close": "إغلاق",
     "Delete": "حذف",
     "Edit": "تعديل",
-    "Activate":"تفعيل",
-    "Deactivate":"تعطيل"
+    "Activate": "تفعيل",
+    "Deactivate": "تعطيل",
+    "ClearSelection": "إلغاء التحديد",
+    "ExportSelected": "تصدير المحدد",
+    "DeactivateSelected": "إلغاء تنشيط المحدد",
+    "ActivateSelected": "تفعيل المحدد"
   },
   "Home": {
     "Welcome": "مرحبًا بك في نظام إدارة المستخدمين",

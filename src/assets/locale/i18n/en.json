@@ -50,7 +50,11 @@
     "Delete": "Delete",
     "Edit": "Edit",
     "Activate": "Activate",
-    "Deactivate": "Deactivate"
+    "Deactivate": "Deactivate",
+    "ClearSelection": "Clear Selection",
+    "ExportSelected": "Export Selected",
+    "DeactivateSelected": "Deactivate Selected",
+    "ActivateSelected": "Activate Selected"
   },
   "Home": {
     "Welcome": "Welcome to User Management System",
