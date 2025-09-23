@@ -181,10 +181,6 @@ export class CustomGridComponent<T extends { id: number }> implements OnInit {
   getCellValue(row: any, field: string): any {
     return row[field as keyof typeof row];
   }
-
-  get anySelected(): boolean {
-    return this.selectedIds.size > 0;
-  }
   getActionLabel(action: any, row: any): string {
     return typeof action.label === 'function'
       ? action.label(row)
