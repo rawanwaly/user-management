@@ -24,7 +24,7 @@ export interface GridColumn {
   // format?: (value: any, row?: any) => string;
   type?: 'text' | 'number' | 'email' | 'checkbox' | 'actions' | 'date';
   //can remove
-  visible?: boolean;
+  template?: any;
   //more options generic
   //add css classes on column cells
   align?: 'left' | 'center' | 'right';

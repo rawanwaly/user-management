@@ -162,17 +162,11 @@ export class CustomGridComponent<T extends { id: number }> implements OnInit {
     }
   }
   onActivateSelected() {
-    if (
-      confirm(
-        `Are you sure you want to activate ${this.selectedIds.size} user(s)?`
-      )
-    ) {
       if (this.config.onBulkActivate) {
         this.config.onBulkActivate([...this.selectedIds]);
       }
       this.selectedIds.clear();
       this.syncCheckboxState();
-    }
   }
 
   toggleSelectRow(id: number, checked: boolean) {

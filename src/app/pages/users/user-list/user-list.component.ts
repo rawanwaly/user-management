@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { GridConfig } from 'src/app/components/models/grid.models';
 import { UserService } from '../user.service';
 import { User } from '../user.model';
@@ -15,9 +15,9 @@ import { ConfirmationService } from 'src/app/components/shared/confirmation-mode
   styleUrls: ['./user-list.component.css'],
 })
 export class UserListComponent implements OnInit {
+ @ViewChild('statusTemplate', { static: true }) statusTemplate!: TemplateRef<any>;
   users$ = this.userService.getAll();
   userGridConfig!: GridConfig<User>;
-
   constructor(
     private userService: UserService,
     private router: Router,
@@ -33,11 +33,20 @@ export class UserListComponent implements OnInit {
   private buildGridConfig(): GridConfig<User> {
     return {
       ...USER_GRID_CONFIG,
-
+columns: [
+      ...USER_GRID_CONFIG.columns.map(col => {
+        if (col.field === 'isActive') {
+          return {
+            ...col,
+            template: this.statusTemplate
+          };
+        }
+        return col;
+      })
+    ],
       fetchPagedData: (req) => this.userService.getPagedUsers(req),
       fetchAllData: () => this.userService.getAll(),
       fetchAllIds: (search) => this.userService.getAllIds(search),
-      rowClass: (user: User) => (!user.isActive ? 'inactive-row' : ''),
 
       onBulkActivate: (ids) =>
         this.confirmService.openConfirmDialog(

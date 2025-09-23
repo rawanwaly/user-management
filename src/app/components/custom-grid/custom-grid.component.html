@@ -6,18 +6,37 @@
     (input)="onSearchChange()"
   />
 </div>
+
 <div *ngIf="anySelected" class="bulk-actions">
-  <button class="action-btn clear-btn" title="Clear Selection" (click)="onClearSelection()">
+  <button
+    class="action-btn clear-btn"
+    [title]="'Actions.ClearSelection' | translate"
+    (click)="onClearSelection()"
+  >
     <i class="fas fa-times"></i>
   </button>
-  <button class="action-btn export-btn" title="Export Selected" (click)="onBulkExport()">
+
+  <button
+    class="action-btn export-btn"
+    [title]="'Actions.ExportSelected' | translate"
+    (click)="onBulkExport()"
+  >
     <i class="fas fa-file-export"></i>
   </button>
-  <button class="action-btn delete-btn" title="Deactivate Selected" (click)="onDeactivateSelected()">
+
+  <button
+    class="action-btn delete-btn"
+    [title]="'Actions.DeactivateSelected' | translate"
+    (click)="onDeactivateSelected()"
+  >
     <i class="fas fa-trash"></i>
   </button>
 
-  <button class="action-btn" title="Activate Selected" (click)="onActivateSelected()">
+  <button
+    class="action-btn"
+    [title]="'Actions.ActivateSelected' | translate"
+    (click)="onActivateSelected()"
+  >
     <i class="fas fa-user-check"></i>
   </button>
 </div>
@@ -39,64 +58,81 @@
       >
         {{ col.header | translate }}
         <span *ngIf="sortColumn === col.field">
-          {{ sortDirection === "asc" ? "▲" : "▼" }}
+          {{ sortDirection === 'asc' ? '▲' : '▼' }}
         </span>
       </th>
 
-      <th *ngIf="config.actions?.length">Actions</th>
+      <th *ngIf="config.actions?.length">
+        {{ 'Grid.Actions' | translate }}
+      </th>
     </tr>
   </thead>
 
-<tbody>
-  <tr *ngFor="let row of data"
-      [ngClass]="config.rowClass ? config.rowClass(row) : ''">
-    <td *ngIf="config.checkboxSelection">
-      <input
-        type="checkbox"
-        [checked]="selectedIds.has(row.id)"
-        (change)="onSelectRowChange(row.id, $event)"
-      />
-    </td>
+  <tbody>
+    <tr
+      *ngFor="let row of data"
+      [ngClass]="config.rowClass ? config.rowClass(row) : ''"
+    >
+      <td *ngIf="config.checkboxSelection">
+        <input
+          type="checkbox"
+          [checked]="selectedIds.has(row.id)"
+          (change)="onSelectRowChange(row.id, $event)"
+        />
+      </td>
 
-    <td *ngFor="let col of config.columns">
-      {{ getCellValue(row, col.field) }}
-    </td>
+      <!-- Data Columns -->
+      <td *ngFor="let col of config.columns">
+        <ng-container *ngIf="col.template; else defaultCell">
+          <ng-container
+            *ngTemplateOutlet="col.template; context: { $implicit: row }"
+          >
+          </ng-container>
+        </ng-container>
+        <ng-template #defaultCell>
+          {{ getCellValue(row, col.field) }}
+        </ng-template>
+      </td>
 
-    <td *ngIf="config.actions?.length">
-      <button
-        *ngFor="let action of config.actions"
-        [ngClass]="['btn', action.type]"
-        (click)="action.onClick(row)"
-      >
-        {{ action.label | translate }}
-      </button>
-    </td>
-  </tr>
-</tbody>
+      <!-- Actions Column -->
+      <td *ngIf="config.actions?.length">
+        <button
+          *ngFor="let action of config.actions"
+          [ngClass]="['btn', action.type]"
+          (click)="action.onClick(row)"
+        >
+          {{ action.label | translate }}
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>
+
+<!-- Pagination -->
 <div class="pagination">
   <button
     [disabled]="currentPage === 1"
     (click)="onPageChange(currentPage - 1)"
   >
-    Prev
+    {{ 'Grid.Prev' | translate }}
   </button>
 
   <span>
-    Page {{ currentPage }} / {{ Math.ceil(totalRecords / pageSize) }}
+    {{ 'Grid.Page' | translate }} {{ currentPage }}
+    {{ 'Grid.Of' | translate }} {{ Math.ceil(totalRecords / pageSize) }}
   </span>
 
   <button
     [disabled]="currentPage >= totalRecords / pageSize"
     (click)="onPageChange(currentPage + 1)"
   >
-    Next
+    {{ 'Grid.Next' | translate }}
   </button>
 
-  <!-- ✅ Page Size Dropdown -->
+  <!-- Page Size Dropdown -->
   <div class="page-size">
     <label>
-      Show
+      {{ 'Grid.Show' | translate }}
       <select [(ngModel)]="pageSize" (change)="onPageSizeChange()">
         <option *ngFor="let size of config.pageSizeOptions" [value]="size">
           {{ size }}

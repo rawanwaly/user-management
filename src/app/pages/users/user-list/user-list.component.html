@@ -1,26 +1,37 @@
 <div class="user-list-container">
   <div class="header">
     <div class="title">
-      <h1>{{ 'User.AllUsers' | translate }}</h1>
+      <h1>{{ "User.AllUsers" | translate }}</h1>
     </div>
     <button class="btn add" (click)="addNewUser()">
       <span class="plus">+</span>
-      {{ 'User.AddUser' | translate }}
+      {{ "User.AddUser" | translate }}
     </button>
   </div>
 
-  <!-- Custom Grid -->
+  <ng-template #statusTemplate let-user>
+    <span
+      [ngClass]="{
+        'active-badge': user.isActive,
+        'inactive-badge': !user.isActive
+      }"
+    >
+      {{
+        user.isActive
+          ? ("User.Active" | translate)
+          : ("User.Inactive" | translate)
+      }}
+    </span>
+  </ng-template>
+
   <ng-container *ngIf="users$ | async as users">
-    <app-custom-grid
-      *ngIf="users.length > 0"
-      [config]="userGridConfig">
+    <app-custom-grid *ngIf="users.length > 0" [config]="userGridConfig">
     </app-custom-grid>
 
-    <!-- Empty State -->
     <div class="empty-state" *ngIf="users.length === 0">
       <div class="empty-icon">👥</div>
-      <h3>{{ 'User.NoUsersFound' | translate }}</h3>
-      <p>{{ 'User.NoUsersYet' | translate }}</p>
+      <h3>{{ "User.NoUsersFound" | translate }}</h3>
+      <p>{{ "User.NoUsersYet" | translate }}</p>
     </div>
   </ng-container>
 </div>
