@@ -5,7 +5,7 @@ import { User } from '../user.model';
 import { Router } from '@angular/router';
 import { USER_GRID_CONFIG } from 'src/app/components/configs/user-grid.config';
 import { TranslateService } from '@ngx-translate/core';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { FileService } from '../file.service';
 import { ConfirmationService } from 'src/app/components/shared/confirmation-model/service/confirmation.service';
 
@@ -31,7 +31,7 @@ export class UserListComponent implements OnInit {
     this.userGridConfig = this.buildGridConfig();
   }
 
- private buildGridConfig(): GridConfig<User> {
+private buildGridConfig(): GridConfig<User> {
   return {
     ...USER_GRID_CONFIG,
     columns: [
@@ -50,29 +50,15 @@ export class UserListComponent implements OnInit {
     fetchAllIds: (search) => this.userService.getAllIds(search),
 
     onBulkActivate: (ids) =>
-      this.confirmService.openConfirmDialog(
-        this.translate.instant('User.ConfirmActivateUsers', {
-          count: ids.length,
-        }),
-        '',
-        () => {
-          firstValueFrom(this.userService.activateSelected(ids)).then(() =>
-            this.refreshGrid()
-          );
-        }
+      this.confirmAndRun(
+        this.translate.instant('User.ConfirmActivateUsers', { count: ids.length }),
+        () => this.userService.activateSelected(ids)
       ),
 
     onBulkDeactivate: (ids) =>
-      this.confirmService.openConfirmDialog(
-        this.translate.instant('User.ConfirmDeactivateUsers', {
-          count: ids.length,
-        }),
-        '',
-        () => {
-          firstValueFrom(this.userService.deactivateSelected(ids)).then(() =>
-            this.refreshGrid()
-          );
-        }
+      this.confirmAndRun(
+        this.translate.instant('User.ConfirmDeactivateUsers', { count: ids.length }),
+        () => this.userService.deactivateSelected(ids)
       ),
 
     onBulkExport: (ids) => {
@@ -105,6 +91,7 @@ export class UserListComponent implements OnInit {
     ],
   };
 }
+
 
 
   deactivateUser(userId: number): void {
@@ -143,4 +130,11 @@ export class UserListComponent implements OnInit {
       reloadFlag: Date.now(),
     };
   }
+
+private confirmAndRun(message: string, action: () => Observable<any>): void {
+  this.confirmService.openConfirmDialog(message, '', () => {
+    firstValueFrom(action()).then(() => this.refreshGrid());
+  });
+}
+
 }
